@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Last-Project",
+    "name": "PerservePro",
     "slug": "Last-Project",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,16 +12,23 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gost150.LastProject"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gost150.LastProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4f8d4164-a3a3-4ced-93a1-9e6d49561737"
+      }
     }
   }
 }

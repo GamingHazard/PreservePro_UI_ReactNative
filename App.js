@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Toast from "react-native-toast-message";
+import { AuthProvider } from "./components/AuthContext";
+import { NotificationProvider } from "./components/NotificationContext";
 
-export default function App() {
+import screens from "./components/Screen";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+
+const Stack = createStackNavigator();
+
+// Auth stack for login and signup
+const AuthStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Login"
+      component={Login}
+    />
+    <Stack.Screen name="SignUp" component={SignUp} />
+    {screens.map((screen) => (
+      <Stack.Screen
+        key={screen.name}
+        name={screen.name}
+        component={screen.component}
+        options={{ headerShown: false, ...(screen.options || {}) }}
+      />
+    ))}
+  </Stack.Navigator>
+);
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <NotificationProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Auth">
+            <Stack.Screen
+              name="Auth"
+              component={AuthStack}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+        <Toast ref={(ref) => Toast.setRef(ref)} />
+      </NotificationProvider>
+    </AuthProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
